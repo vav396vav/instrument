@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.skillbox'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // SLF4J API - интерфейс для логирования
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+
+    // Logback - реализация SLF4J (сам логгер)
+    implementation 'ch.qos.logback:logback-classic:1.4.11'
+
+    // Lombok - для уменьшения шаблонного кода (геттеры, сеттеры и т.д.)
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+}
