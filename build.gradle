@@ -5,9 +5,24 @@ plugins {
 group = 'com.skillbox'
 version = '1.0-SNAPSHOT'
 
+
+// === НАСТРОЙКА КОДИРОВКИ UTF-8 ===
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'  // Кодировка исходных файлов .java
+}
+
+tasks.withType(JavaExec) {
+    systemProperty "file.encoding", "UTF-8"  // Кодировка при запуске приложения
+}
+
+tasks.withType(Test) {
+    systemProperty "file.encoding", "UTF-8"  // Кодировка при запуске тестов
+}
+
 repositories {
     mavenCentral()
 }
+
 
 dependencies {
     // SLF4J API - интерфейс для логирования
