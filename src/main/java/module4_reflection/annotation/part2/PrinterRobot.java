@@ -9,9 +9,10 @@ public class PrinterRobot {
     public static void main(String[] args) {
         Printer printer = new Printer();
 
-        Class<Printer> printerClass = Printer.class;
-        Method[] methods = printerClass.getMethods();
+        Class<Printer> printerClass = Printer.class; // получили класс
+        Method[] methods = printerClass.getMethods(); // Получаем все методы класса
 
+        // Фильтруем
         Arrays.stream(methods)
                 .filter(method -> method.isAnnotationPresent(Order.class))
                 .sorted(Comparator.comparingInt(method -> method.getAnnotation(Order.class).value()))

@@ -5,25 +5,22 @@ plugins {
 group = 'com.skillbox'
 version = '1.0-SNAPSHOT'
 
-
-// === НАСТРОЙКА КОДИРОВКИ UTF-8 ===
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'  // Кодировка исходных файлов .java
+// === НАСТРОЙКА КОДИРОВКИ UTF-8 (ПРАВИЛЬНЫЙ СИНТАКСИС) ===
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }
 
-tasks.withType(JavaExec) {
-    systemProperty "file.encoding", "UTF-8"  // Кодировка при запуске приложения
+tasks.withType(JavaExec).configureEach {
+    systemProperty "file.encoding", "UTF-8"
+    standardInput = System.in
 }
 
-tasks.withType(Test) {
-    systemProperty "file.encoding", "UTF-8"  // Кодировка при запуске тестов
-}
-
+// === РЕПОЗИТОРИИ (ОБЯЗАТЕЛЬНО!) ===
 repositories {
     mavenCentral()
 }
 
-
+// === ЗАВИСИМОСТИ ===
 dependencies {
     // SLF4J API - интерфейс для логирования
     implementation 'org.slf4j:slf4j-api:2.0.9'
@@ -31,7 +28,7 @@ dependencies {
     // Logback - реализация SLF4J (сам логгер)
     implementation 'ch.qos.logback:logback-classic:1.4.11'
 
-    // Lombok - для уменьшения шаблонного кода (геттеры, сеттеры и т.д.)
+    // Lombok - для уменьшения шаблонного кода
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
