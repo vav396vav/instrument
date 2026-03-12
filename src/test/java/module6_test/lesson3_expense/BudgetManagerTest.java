@@ -5,20 +5,30 @@ import module6_test.lesson3_expense.dto.Income;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class BudgetManagerTest {
     //  переменная, где хранится объект
     private BudgetManager manager;
+//    @Mock
+//    private OldSystemConnectionServise service;
 
     // Метод, где создается объект
     @BeforeEach
     public void setUp() {
-        manager = new BudgetManager();
+        OldSystemConnectionServise service = Mockito.mock(OldSystemConnectionServise.class);
+        when(service.getLastBalance()).thenReturn(100);
+        manager = new BudgetManager(service);
     }
 
     // Метод, где тестируется добавления расходов
@@ -51,7 +61,7 @@ public class BudgetManagerTest {
         manager.addIncome(income);
         Expense expense = new Expense(new BigDecimal("200"), "Обед" );
         manager.addExpenses(expense);
-        assertEquals(new BigDecimal("800"), manager.getBalance());
+        assertEquals(new BigDecimal("900"), manager.getBalance());
     }
 
     @Test

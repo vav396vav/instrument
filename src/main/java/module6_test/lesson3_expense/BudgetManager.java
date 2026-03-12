@@ -12,8 +12,10 @@ import java.util.Optional;
 public class BudgetManager {
     private final List<Expense> expenses;
     private final List<Income> incomes;
+    private final BigDecimal startBalance;
 
-    public BudgetManager() {
+    public BudgetManager(OldSystemConnectionServise service) {
+        startBalance = new BigDecimal(service.getLastBalance());
         expenses = new ArrayList<>();
         incomes = new ArrayList<>();
     }
@@ -47,6 +49,7 @@ public class BudgetManager {
     }
 
     public BigDecimal getBalance() {
-        return getTotalIncome().subtract(getTotalExpense());
+        BigDecimal balance = getTotalIncome().subtract(getTotalExpense());
+        return startBalance.add(balance);
     }
 }
